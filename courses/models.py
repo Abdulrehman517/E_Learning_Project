@@ -4,6 +4,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from .fields import OrderField
 
+
 class Subject(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
@@ -54,7 +55,7 @@ class Content(models.Model):
                                                             'image',
                                                             'file')})
 
-    object_id= models.PositiveIntegerField()
+    object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
     order = OrderField(blank=True, for_fields=['module'])
 
@@ -63,7 +64,7 @@ class Content(models.Model):
 
 
 class ItemBase(models.Model):
-    owner = models.ForeignKey(User,related_name='%(class)s_related', on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, related_name='%(class)s_related', on_delete=models.CASCADE)
 
     title = models.CharField(max_length=250)
     created = models.DateTimeField(auto_now_add=True)
@@ -90,5 +91,3 @@ class Images(ItemBase):
 
 class Video(ItemBase):
     url = models.URLField()
-
-
